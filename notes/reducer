@@ -1,0 +1,75 @@
+Reducer: pure function that takes state and action as param, and returns the new state.
+
+function myReducer(state, action){
+  //Return new state based on action passed
+}
+
+
+function myReducer(state, action){
+  switch(action.type){
+    case 'INCREMENT_COUNTER':
+      return (
+        Object.assign({}, state, {counter: state.counter + 1})
+      );
+  }
+}
+
+Reducers must be pure:
+Forbidden in Reducers:
+  - Mutate arguments
+  - Perform side effects
+  - Call non-pure functions (like Date.now, math.random)
+
+
+1 Store. Multiple Reducers.
+
+Reducer composition :
+  Write independent small reducer functions that are each responsible for updates to a specific slice of state.
+  A given action could be handled by all, some or none of them.
+
+
+connect(mapStateToProps, mapDispatchToProps)
+
+mapStateToProps: What state should I expose as props?
+    function mapStateToProps(state){
+      return {
+        appState: state
+      };
+    }
+
+mapDispatchToProps: What actions do I want on props?
+    function mapDispatchToProps(dispatch){
+      return {
+        actions: bindActionCreators(actions, dispatch)
+      };
+    }
+
+3 Ways to Handle mapDispatchToProps
+
+Option 1: Use Dispatch Directly (not recommended)
+    //In component...
+    this.props.dispatch(actionCreator())
+
+    Downsides: Boilerplate, Redux concerns in child components
+
+Option2: Wrap Manually
+    function mapDispatchToProps(dispatch) {
+      return {
+        actionCreator1: () => { dispatch(actionCreator1()); },
+        actionCreator2: () => { dispatch(actionCreator2()); },
+        actionCreator3: () => { dispatch(actionCreator3()); },
+      };
+    }
+
+    //In component...
+    this.props.actionCreator1()
+
+Option3: bindActionCreators
+    function mapDispatchToProps(dispatch){
+      return {
+        actions: bindActionCreators(actions, dispatch)
+      };
+    }
+
+    //In component...
+    this.props.actions.actionCreator1();

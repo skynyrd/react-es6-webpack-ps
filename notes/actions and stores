@@ -1,0 +1,20 @@
+Action Example : { type: RATE_COURSE, rating: simple_or_complex_object }
+
+Action Creator:
+
+    rateCourse(rating) {
+      return { type: RATE_COURSE, rating: rating };
+    }
+
+    Action creator name and action name should be same (convention)
+
+
+Creating Redux Store:
+  let store = createStore(reducer);    // Placed in application's entry point.
+
+
+Redux Store:
+  store.dispatch(action)
+  store.subscribe(listener)
+  store.getState()
+  replaceReducer(nextReducer)

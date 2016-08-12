@@ -1,0 +1,16 @@
+Container:
+  Little to no markup
+  Pass data and actions down
+  Knows about Redux
+  Often stateful
+  Smart,Stateful,Controller View
+  Focus on how things work
+
+
+Presentation: (Most components)
+  Nearly all markup
+  Receive data and actions via props
+  Doesn't know about Redux
+  Typically functional components
+  Dumb,Stateless,View
+  Focus on how things look

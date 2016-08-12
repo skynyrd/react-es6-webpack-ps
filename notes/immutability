@@ -1,0 +1,59 @@
+Immutability: To change state, return a new object.
+
+Immutable already in JS: Number,String,Boolean,Undefined,Null
+Mutable in JS: Objects,Arrays,Functions
+
+Mutable example:
+    state = {
+      name: "A",
+      role: "B"
+    }
+
+    state.role = "C"
+    return state;
+
+Immutable example:
+     state = {
+       name: "A",
+       role: "B"
+     }
+
+     return state = {
+       name: "C",
+       role: "B"
+     }
+
+Immutable ex in JS (ES6):
+    Signature:
+      Object.assign(target, ...sources)
+    Example:
+      Object.assign({}, state, {role: 'admin'});
+        Exp: Copies the existing state to {}, and changes the role field with "admin", if you forgot passing {},
+        it is going to be mutable.
+
+       As Object.assign is the new feature coming with ES6, Babel cannot translate it to ES5, babel-polyfill is needed.
+
+Why Immutable?
+    - Clarity (Just a reducer can change the state)
+    - Performance (Checking all the object fields are not necessary for immutable store, it just checks the obj reference)
+    - Awesome Sauce (Advantage on debugging. time-travel debugging,undo/redo, turn off individual actions, play back)
+
+Handling Immutable State:
+    ES6:
+      - Object.assign,
+      - Spread operator
+
+    ES5:
+      - Lodash merge
+      - Lodash extend
+      - Object.assign (npm package)
+
+    Libraries:
+      - react-addons-update
+      - Immutable.js
+
+
+How do I enforce immutability?
+    - Trust
+    - redux-immutable-state-invariant
+    - Immutable.js

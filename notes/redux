@@ -1,0 +1,36 @@
+Three Principles of Redux
+
+1. One immutable store: State can't be changed.
+2. Actions trigger changes.
+3. State is changed by pure functions: Reducers.
+
+Flux vs Redux
+
+Similarities:
+  Data down. Actions up.
+  Unidirectional Flow (One Way).
+  Actions.
+  Stores.
+
+Differences:
+  Reducers of Redux
+  Containers of Redux
+  Immutability of Redux
+
+Flux: Stores contain state and change logic.
+Redux: Store and change logic are separate.
+
+Flux: Multiple stores
+Redux: One store
+
+Flux: Flat and disconnected stores.
+Redux: Single store with hierarchical reducers.
+
+Flux: Singleton dispatcher
+Redux: No dispatcher
+
+Flux: React components subscribe to stores
+Redux: Container components utilize connect (React Redux)
+
+Flux: State is mutated
+Redux: State is immutable

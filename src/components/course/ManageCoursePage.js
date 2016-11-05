@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
 import CourseForm from './CourseForm';
+import toastr from 'toastr';
 
 class ManageCoursePage extends React.Component {
   constructor(props, context) {
@@ -10,11 +11,22 @@ class ManageCoursePage extends React.Component {
 
     this.state = {
       course: Object.assign({}, this.props.course),
-      errors: {}
+      errors: {},
+      saving: false
     };
 
     this.updateCourseState = this.updateCourseState.bind(this);
     this.saveCourse = this.saveCourse.bind(this);
+  }
+
+  /* Lifecycle method:
+  React checks when props are changed. It also checks sometimes when props does not change. (if for that.)
+  This is for updating our state when api call finishes
+  (For the bug: Missing course fields when refreshing /course/id page.) */
+  componentWillReceiveProps(nextProps){
+    if (this.props.course.id != nextProps.course.id) {
+      this.setState({course: Object.assign({}, nextProps.course)});
+    }
   }
 
   updateCourseState(event) {
@@ -26,8 +38,20 @@ class ManageCoursePage extends React.Component {
 
   saveCourse(event){
     event.preventDefault();
-    this.props.actions.saveCourse(this.state.course);
+    this.setState({saving: true});
+    this.props.actions
+      .saveCourse(this.state.course)
+      .then(() => this.redirect())
+      .catch(e => {
+        toastr.error(e);
+        this.setState({saving: false})
+      });
+  }
+
+  redirect(){
     this.context.router.push('/courses');
+    toastr.success('Course saved');
+    this.setState({saving: false});
   }
 
   render() {
@@ -37,7 +61,8 @@ class ManageCoursePage extends React.Component {
         onChange={this.updateCourseState}
         onSave={this.saveCourse}
         allAuthors={this.props.authors}
-        errors={this.state.errors}/>
+        errors={this.state.errors}
+        saving={this.state.saving}/>
     );
   }
 }
